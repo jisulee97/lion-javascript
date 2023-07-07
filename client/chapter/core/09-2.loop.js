@@ -20,17 +20,56 @@
 //   '최초 실행된 메시지입니다. 이 메시지는 조건이 거짓이어도 볼 수 있습니다.' 출력
 // - 순환 중단
 
-let repeat = prompt('몇번 반복할까요?', 0);
+// let repeat = prompt('몇번 반복할까요?', 0);
 
-do {
-  console.log(repeat);
+// do {
+//   console.log(repeat);
 
-  if (repeat < 0) {
-    console.log('최초실행입니다.');
-    break;
-  }
-  repeat--;
-} while (repeat);
+//   if (repeat < 0) {
+//     console.log('최초실행입니다.');
+//     break;
+//   }
+//   repeat--;
+// } while (repeat);
 
 // do ~ while 문 (순환)
 // - 위 do ~ while 문을 순방향으로 순환되도록 설정
+
+let first = document.querySelector('.first');
+let second = document.querySelector('.second');
+
+// first = first.nextSibling;
+
+// do {
+//   first = first.nextSibling;
+// } while (first.nodeType !== document.ELEMENT_NODE);
+
+// // 반복문 멈추는 시점 => 무한루프
+
+// 다음 요소 반환 함수
+
+// console.log(first);
+
+// function next(node) {
+//   do {
+//     node = node.nextSibling;
+//   } while (node.nodeType !== 1);
+
+//   return node;
+// }
+
+// const second = next(first);
+
+// console.log(second);
+
+// 이전 요소 반환 함수
+
+function prev(node) {
+  do {
+    node = node.previousSibling;
+  } while (node.nodeType !== 1);
+
+  return node;
+}
+
+console.log(prev(second));
