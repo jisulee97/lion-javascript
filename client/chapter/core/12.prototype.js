@@ -10,6 +10,8 @@
 //   legs: 4,
 //   tail: true,
 //   stomach: [],
+
+//# Enumerable 하지 않고 setter 역할 부여
 //   set eat(food) {
 //     this.stomach.push(food);
 //   },
@@ -18,6 +20,7 @@
 //   },
 // };
 
+//# Enumerable 하지 않고 getter 역할 부여
 // const tiger = {
 //   pattern: '호랑이무늬',
 //   prey: '',
