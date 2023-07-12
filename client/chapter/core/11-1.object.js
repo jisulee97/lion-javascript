@@ -156,7 +156,7 @@ function getP(object) {
 
 // 단축 프로퍼티
 
-// 프로퍼티 제거 or 삭제(null or 없앰)
+// 프로퍼티 제거(null) or 삭제(없앰)
 
 // authUser.name = null;
 
