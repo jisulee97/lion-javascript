@@ -70,7 +70,8 @@ const { platform, userAgent, language, onLine, geolocation } = navigator;
 
 //# platform : 브라우저가 실행되는 플랫폼 정보를 반환
 //# userAgent : 브라우저와 운영체제의 정보를 반환
-
+//# language : 브라우저에서 사용되는 언어를 반환
+//# oneline : 브라우저가 온라인인지 여부를 반환
 function browserName() {
   const agent = userAgent.toLowerCase();
   let browserName;
@@ -97,10 +98,38 @@ function browserName() {
   return browserName;
 }
 
+geolocation.getCurrentPosition((data) => {
+  console.log(data.coords.latitude);
+  console.log(data.coords.longitude);
+});
+
+function getLocationPosition() {
+  return new Promise((resolve, reject) => {
+    geolocation.getCurrentPosition((data) => {
+      if (!data) {
+        reject({ message: '위치 서비스를 활성화 해주세요.' });
+      } else {
+        const { latitude, longitude } = data.coords;
+        console.log(2);
+        resolve({ latitude, longitude });
+      }
+    });
+  });
+}
+
 /* Screen 객체 ----------------------------------------------------------- */
 
 const { width, height, availWidth, availHeight, orientation } = screen;
 
+// height : 모니터 사이즈 반환
+// availHeight : 브라우저의 크기
+// innerHeight : 브라우저 해상도 크기
+
 /* History 객체 ---------------------------------------------------------- */
 
+// 방문 내역 관리
+
 const { back, forward, go, length, pushState, replaceState } = history;
+
+// 브라우저에 카메라 허용 기능
+navigator.mediaDevices.getUserMedia({ video: true });
