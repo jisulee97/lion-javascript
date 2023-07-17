@@ -54,6 +54,7 @@ const { href, protocol, host, port, search, hash, replace, reload } = location;
 
 //@ location.replace('페이지 주소') : 뒤로 가기가 안됨
 //@ location.href('페이지 주소')  : 되돌아가기 가능
+//@ location.reload() -> 새로고침
 
 const urlParams = new URLSearchParams(location.search);
 
@@ -124,6 +125,9 @@ const { width, height, availWidth, availHeight, orientation } = screen;
 // height : 모니터 사이즈 반환
 // availHeight : 브라우저의 크기
 // innerHeight : 브라우저 해상도 크기
+// orientation : 모니터 방향
+// (정방향 : landscape-primary)
+// (세로방향 : portrait-primary)
 
 /* History 객체 ---------------------------------------------------------- */
 
