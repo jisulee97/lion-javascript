@@ -48,8 +48,20 @@ console.log(friends);
 // 배열 요소 순환(loop)
 // for 문, for ~ of문
 
+for (let i = 0; i < friends.length; i++) {
+  console.log(friends[i]);
+}
+
+for (let value of friends) {
+  console.log(value);
+}
+
 // 배열 복사
-let copiedArray;
+// let copiedArray = [...friends];
+// let copiedArray = friends.slice();
+let copiedArray = friends.toSorted(); // 정렬을 하면서 복사를 해줌
+
+console.log(copiedArray);
 
 // 다차원 배열
 // 행렬을 저장하는 용도
