@@ -3,12 +3,13 @@
 /* --------------------------------- */
 
 /* 모든 노드에서 사용 */
-// - parentNode
-// - childNodes
-// - firstChild
-// - lastChild
-// - previousSibling
-// - nextSibling
+// 크롬 개발자 도구 > 요소: 클릭 (span) : $0
+// - parentNode : h1
+// - childNodes : NodeList [text]
+// - firstChild : "hello"
+// - lastChild  : "hello"
+// - previousSibling : #text
+// - nextSibling : #text
 
 /* 요소 노드에서만 사용 가능 */
 // - parentElement
