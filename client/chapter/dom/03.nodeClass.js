@@ -51,17 +51,35 @@ console.log(first.nodeName === 'SPAN');
 console.log(first.tagName === 'SPAN');
 /* 노드 콘텐츠 읽기/쓰기 ---------------------------------------------------- */
 
-// - innerHTML : 요소 자체에 html 태그를 추가 => script 태그 자체가 들어가기 때문에 해킹 위험이 높다
-first.innetHTML = 'helloooooo';
-// * 기존 내용 삭제
-// * 기존 내용과 새로운 내용을 합친 새로운 내용을 씀
+//# - innerHTML : 요소 자체에 html 태그를 추가 => script 등의 태그 자체가 들어갈 수 있기 때문에 해킹 위험이 높다
+//@ 값을 비울때 가끔 사용하기도 함
 
-// - textContent
+// * 기존 내용 삭제
+// ifrst.innerHTML = '';
+// * 기존 내용과 새로운 내용을 합친 새로운 내용을 씀
+first.innetHTML += '<div>안녕</div>';
+
+//# - textContent : 문자만 뽑아서 넣을 수 있는 기능
+console.log((first.textContent = 'hola!'));
 // * 요소 내의 텍스트에 접근
 // * 태그는 제외하고 오로지 텍스트만 추출
 
 /* hidden -------------------------------------------------------------- */
 
 // - hidden
-// * hidden은 HTML 속성으로, DOM 프로퍼티로 사용 가능
+//# hidden은 HTML 속성으로, DOM 프로퍼티로 사용 가능
 // * hidden 프로퍼티는 기술적으로 style="display:none"와 동일
+// * 태그를 숨길 수 있는 기능
+//@ DOM 프로퍼티 = h1.hidden
+const h1 = getNode('h1');
+h1.hidden = true; // 브라우저에서 사라짐
+h1.hidden = false; // 브라우저에서 나타남
+
+let toggle = false;
+
+// 0.1 초마다 깜빡이게 하기
+// setInterval(() => {
+//   h1.hidden = toggle ? false : true;
+
+//   toggle = !toggle;
+// }, 100);
