@@ -46,50 +46,50 @@ console.log(first.attributes); //# first 안에 있는 모든 값들을 객체�
 
 //# getAttribute 함수
 
-function getAttr(node, prop) {
-  //@ 1. 넘어온 대상이 문자인지를 체크(typeof 로 확인하기)
-  //@ 2. node 자체는 문자이고 element 가 아니기 때문에 getNode 함수를 이용하여 변환 후 사용해야함
-  if (typeof node === 'string') {
-    node = getNode(node);
-  }
-  return node.getAttribute(prop);
-}
-getAttr('.first', 'id');
+// function getAttr(node, prop) {
+//   //@ 1. 넘어온 대상이 문자인지를 체크(typeof 로 확인하기)
+//   //@ 2. node 자체는 문자이고 element 가 아니기 때문에 getNode 함수를 이용하여 변환 후 사용해야함
+//   if (typeof node === 'string') {
+//     node = getNode(node);
+//   }
+//   return node.getAttribute(prop);
+// }
+// getAttr('.first', 'id');
 
 //# setAttribute 함수
 
-function setAttr(node, prop, value) {
-  if (typeof node === 'string') {
-    node = getNode(node);
-  }
-  if (typeof prop !== 'string') {
-    throw new Error('setAttr 함수의 두 번째 인수는 문자 타입이어야 합니다.');
-  }
-  //@ setAttr('.first', name', 'play')=> 비표준으로 넣고 싶을 때 data- 를 붙여서 세팅해야함
-  //@ [] 로 표시한 이유 : 계산된 프로퍼티를 사용하기 위해
-  //! setAttr('.first', 'class', '인사멘트') 로 설정 시 data-class 로 설정되기 때문에 '!== class' 라는 조건 추가
-  if (!node[prop] && prop !== 'class' && prop !== 'title') {
-    node.dataset[prop] = value;
-    return;
-  }
-  //@ 기능을 수행한 것 뿐(값만 세팅) 값을 반환할 필요는 없기 때문에 return 은 필요가 없다!
-  node.setAttribute(prop, value);
-}
-setAttr('.first', 'title', '인사멘트');
+// function setAttr(node, prop, value) {
+//   if (typeof node === 'string') {
+//     node = getNode(node);
+//   }
+//   if (typeof prop !== 'string') {
+//     throw new Error('setAttr 함수의 두 번째 인수는 문자 타입이어야 합니다.');
+//   }
+//   //@ setAttr('.first', name', 'play')=> 비표준으로 넣고 싶을 때 data- 를 붙여서 세팅해야함
+//   //@ [] 로 표시한 이유 : 계산된 프로퍼티를 사용하기 위해
+//   //! setAttr('.first', 'class', '인사멘트') 로 설정 시 data-class 로 설정되기 때문에 '!== class' 라는 조건 추가
+//   if (!node[prop] && prop !== 'class' && prop !== 'title') {
+//     node.dataset[prop] = value;
+//     return;
+//   }
+//   //@ 기능을 수행한 것 뿐(값만 세팅) 값을 반환할 필요는 없기 때문에 return 은 필요가 없다!
+//   node.setAttribute(prop, value);
+// }
+// setAttr('.first', 'title', '인사멘트');
 
 //# attribute 함수
 //@ value 가 있느냐 없느냐에 따라 getter/setter 로 분류
 //@ getAttr 함수에 value 값이 없다면 undefined 가 반환되고 (!value) 라는 조건을 만나면 !value === false 라는 조건이
 //@ 만들어지고 결국 true 가 되어 getAttr() 함수가 실행된다!
-function attr(node, prop, value) {
-  // if (!value) {
-  //   return getAttr(node, prop);
-  // } else {
-  //   setAttr(node, prop, value);
-  // }
-  // return !value ? getAttr(node,prop) : setAttr(node,prop,value);
-}
-attr();
+// function attr(node, prop, value) {
+//   // if (!value) {
+//   //   return getAttr(node, prop);
+//   // } else {
+//   //   setAttr(node, prop, value);
+//   // }
+//   // return !value ? getAttr(node,prop) : setAttr(node,prop,value);
+// }
+// attr();
 
 //# 화살표 함수로 변경
 
