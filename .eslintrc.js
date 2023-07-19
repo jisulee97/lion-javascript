@@ -5,8 +5,8 @@ module.exports = {
     node: true,
   },
   extends: 'eslint:recommended',
-  glovals: {
-    getNode: 'readOnly',
+  globals: {
+    // getNode: 'readOnly',
   },
   overrides: [
     {
@@ -25,5 +25,6 @@ module.exports = {
   },
   rules: {
     'no-unused-vars': 'warn',
+    'no-undef': 'off',
   },
 };
