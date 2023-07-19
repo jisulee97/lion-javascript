@@ -16,10 +16,13 @@ function handleDelegation(e) {
   //@ e.target => (마우스가 제일 먼저 만나는 대상이 타겟)
 }
 
+/*
 function handleDelegation(e) {
   let target = e.target;
 
   let li = target.closest('li'); //@ closest : 안에 있는 대상에서 제일 가까운 'li' 를 수집해줘! (인접한 부모)
+
+  //^  다양한 대상을 수집하기 때문에 closeset 를 이용하여 가장 가까운 li 를 수집하는 코드를 작성
 
   if (!li) return;
 
@@ -53,6 +56,24 @@ function handleDelegation(e) {
     console.log('A 버튼 클릭');
   }
 }
+*/
+
+function handleDelegation(e) {
+  let target = e.target;
+
+  let li = target.closest('li');
+
+  if (!li) return;
+
+  let className = attr(li, 'class');
+  let dataName = attr(li, 'data-name');
+
+  if (className === 'home') {
+    console.log('홈 실행!');
+  }
+}
+
+container.addEventListener('click', handleDelegation);
 
 // arrow function
 // const handleDelegation = (e) => {
