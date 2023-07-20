@@ -1,3 +1,8 @@
+//# 묘듈 프로그래밍 => js 의 방법론
+
+// getNode 가져오기
+import { getNode, attr, bindEvent } from './lib/dom/getNode.js';
+
 const first = getNode('#firstNumber');
 const second = getNode('#secondNumber');
 const result = getNode('.result');
