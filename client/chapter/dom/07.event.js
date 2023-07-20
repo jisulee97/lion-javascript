@@ -18,9 +18,9 @@ function handler() {
 
 // const first = getNode('.first');
 
-function handler() {
-  console.log('DOM 프로퍼티에서 이벤트를 실행합니다.');
-}
+// function handler() {
+//   console.log('DOM 프로퍼티에서 이벤트를 실행합니다.');
+// }
 
 //@ first 라는 프로퍼티 안에 이벤트가 하나만 존재하기 때문에 복수 이벤트 핸들러 불가능!
 // first.onclick = handler;
