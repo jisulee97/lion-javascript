@@ -53,7 +53,7 @@ const resultArea = getNode('.result');
 //   }
 
 //   if (!isNumericString(name)) {
-//     console.log('숫자 타입 입니다');
+//     console.log('제대로 된 이름을 입력해주세요');
 //     return;
 //   }
 
@@ -77,7 +77,14 @@ const resultArea = getNode('.result');
 
 //   if (!name || name.replace(/\s*/g, '') === '') {
 //     showAlert('.alert-error', '이름을 입력해 주세요!!', 2000);
+//@ showAlert 함수를 풀어쓰기
+// getNode('.alert-error').textContent = '이름을 입력 해주세요!!';
 
+// addClass(getNode('.alert-error'), 'is-active');
+
+// setTimeout(() => {
+//   removeClass(getNode('.alert-error'), 'is-active');
+// }, 2000)
 //     shake.restart();
 //     return;
 //   }
@@ -138,6 +145,9 @@ function handleCopy() {
     showAlert('.alert-success', '클립보드 복사 완료!');
   });
 }
+// navigator.clipboard.writeText(text).then(() => {
+//   showAlert('.alert-success', '클립보드 복사 완료!'); // BOM : navigator
+// })
 
 submit.addEventListener('click', handleSubmit);
 resultArea.addEventListener('click', handleCopy);
