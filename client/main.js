@@ -96,7 +96,13 @@ const resultArea = getNode('.result');
 // submit.addEventListener('click', handleSubmit);
 
 //@ [page 4]
-// 1. result 클릭 이벤트 바인딩
+//# 1. result 클릭 이벤트 바인딩
+//# 2. 이름을 제대로 입력했을 때 클립보드에 복사가 될 수 있도록(과제)
+// let state = false;
+
+// state = true;
+
+// if(state){  ...logic }
 
 function handleSubmit(e) {
   e.preventDefault();
