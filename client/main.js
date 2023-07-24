@@ -7,6 +7,8 @@ import {
   isNumericString,
   addClass,
   removeClass,
+  showAlert,
+  shake,
 } from './lib/index.js';
 
 //# 1. 주접 떨기 버튼을 클릭할 수 있는 핸들러를 연결해주세요.
@@ -61,6 +63,7 @@ const resultArea = getNode('.result');
 
 //@ [page 3]
 //# 1. 잘못된 정보를 입력 받으면 사용자에게 알려주세요.
+//# 2. 재사용 가능한 함수(showAlert)
 
 function handleSubmit(e) {
   e.preventDefault();
@@ -70,23 +73,21 @@ function handleSubmit(e) {
   const pick = list[getRandom(list.length)];
 
   if (!name || name.replace(/\s*/g, '') === '') {
-    console.log('이름이 없어요!');
+    showAlert('.alert-error', '이름을 입력해 주세요!!', 2000);
 
-    addClass('.alert-error', 'is-active');
-
-    setTimeout(() => {
-      removeClass('.alert-error', 'is-active');
-    }, 2000);
-
+    shake.restart();
     return;
   }
 
   if (!isNumericString(name)) {
-    console.log('숫자 타입 입니다');
+    showAlert('.alert-error', '제대로된 이름을 입력 해주세요!!', 2000);
+
+    shake.restart();
     return;
   }
 
   clearContents(resultArea);
   insertLast(resultArea, pick);
 }
+
 submit.addEventListener('click', handleSubmit);
