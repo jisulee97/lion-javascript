@@ -69,6 +69,42 @@ const [startButton, recondButton, resetButton] = getNodes(
 
 //# 과제: disableElement(node)/ enableElement(node) 함수 만들어보기
 
+// const handleRollingDice = ((e) => {
+//   let isClicked = false;
+//   let stopAnimation;
+
+//   return () => {
+//     if (!isClicked) {
+//       // 주사위 play
+//       stopAnimation = setInterval(diceAnimation, 100);
+//       recondButton.disabled = true;
+//       resetButton.disabled = true;
+//     } else {
+//       // 주사위 stop
+//       clearInterval(stopAnimation);
+//       recondButton.disabled = false;
+//       resetButton.disabled = false;
+//     }
+
+//     isClicked = !isClicked;
+//   };
+// })();
+
+// startButton.addEventListener('click', handleRollingDice);
+
+//# 2. hidden 속성 제어하기
+// - 기록 버튼 이벤트 바인딩
+// - hidden 속성 false 만들기
+// - 초기화 버튼 이벤트 바인딩
+// - hidden 속성 true 만들기
+
+//# 과제:  함수 만들어보기
+//# visiblElement(node)/ invisibleElement(node)
+//# isDisableState(node) => true/false
+//# isVisibleState(node) => true/false
+
+const recordListWrapper = getNode('.recordListWrapper');
+
 const handleRollingDice = ((e) => {
   let isClicked = false;
   let stopAnimation;
@@ -90,4 +126,16 @@ const handleRollingDice = ((e) => {
   };
 })();
 
+function handleRecord() {
+  recordListWrapper.hidden = false;
+}
+
+function handleReset() {
+  recordListWrapper.hidden = true;
+  recondButton.disabled = true;
+  resetButton.disabled = true;
+}
+
 startButton.addEventListener('click', handleRollingDice);
+recondButton.addEventListener('click', handleRecord);
+resetButton.addEventListener('click', handleReset);
