@@ -9,6 +9,7 @@ import {
   removeClass,
   showAlert,
   shake,
+  copy,
 } from './lib/index.js';
 
 //# 1. 주접 떨기 버튼을 클릭할 수 있는 핸들러를 연결해주세요.
@@ -64,6 +65,38 @@ const resultArea = getNode('.result');
 //@ [page 3]
 //# 1. 잘못된 정보를 입력 받으면 사용자에게 알려주세요.
 //# 2. 재사용 가능한 함수(showAlert)
+//# 3. gsap shakd 기능 구현
+//# 4. animation 모듈화
+
+// function handleSubmit(e) {
+//   e.preventDefault();
+
+//   let name = nameField.value;
+//   const list = jujeobData(name);
+//   const pick = list[getRandom(list.length)];
+
+//   if (!name || name.replace(/\s*/g, '') === '') {
+//     showAlert('.alert-error', '이름을 입력해 주세요!!', 2000);
+
+//     shake.restart();
+//     return;
+//   }
+
+//   if (!isNumericString(name)) {
+//     showAlert('.alert-error', '제대로된 이름을 입력 해주세요!!', 2000);
+
+//     shake.restart();
+//     return;
+//   }
+
+//   clearContents(resultArea);
+//   insertLast(resultArea, pick);
+// }
+
+// submit.addEventListener('click', handleSubmit);
+
+//@ [page 4]
+// 1. result 클릭 이벤트 바인딩
 
 function handleSubmit(e) {
   e.preventDefault();
@@ -76,6 +109,7 @@ function handleSubmit(e) {
     showAlert('.alert-error', '이름을 입력해 주세요!!', 2000);
 
     shake.restart();
+
     return;
   }
 
@@ -83,6 +117,7 @@ function handleSubmit(e) {
     showAlert('.alert-error', '제대로된 이름을 입력 해주세요!!', 2000);
 
     shake.restart();
+
     return;
   }
 
@@ -90,4 +125,13 @@ function handleSubmit(e) {
   insertLast(resultArea, pick);
 }
 
+function handleCopy() {
+  const text = resultArea.textContent;
+
+  copy(text).then(() => {
+    showAlert('.alert-success', '클립보드 복사 완료!');
+  });
+}
+
 submit.addEventListener('click', handleSubmit);
+resultArea.addEventListener('click', handleCopy);
