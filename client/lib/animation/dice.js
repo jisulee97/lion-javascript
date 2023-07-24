@@ -1,6 +1,6 @@
 import { attr } from '../dom/attr.js';
 import { getNode } from '../dom/getNode.js';
-import { gsap } from '../../../node_modules/gasp/index.js';
+import { gsap } from '../../../node_modules/gsap/index.js';
 
 const cube = getNode('#cube');
 
