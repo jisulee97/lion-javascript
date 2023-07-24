@@ -1,4 +1,11 @@
-import { diceAnimation, getNode, getNodes } from './lib/index.js';
+import {
+  diceAnimation,
+  getNode,
+  getNodes,
+  attr,
+  insertLast,
+  endScroll,
+} from './lib/index.js';
 
 //@ [phase-1] 주사위 굴리기
 //# 1. dice animation 불러오기
@@ -103,7 +110,74 @@ const [startButton, recondButton, resetButton] = getNodes(
 //# isDisableState(node) => true/false
 //# isVisibleState(node) => true/false
 
+// const recordListWrapper = getNode('.recordListWrapper');
+
+// const handleRollingDice = ((e) => {
+//   let isClicked = false;
+//   let stopAnimation;
+
+//   return () => {
+//     if (!isClicked) {
+//       // 주사위 play
+//       stopAnimation = setInterval(diceAnimation, 100);
+//       recondButton.disabled = true;
+//       resetButton.disabled = true;
+//     } else {
+//       // 주사위 stop
+//       clearInterval(stopAnimation);
+//       recondButton.disabled = false;
+//       resetButton.disabled = false;
+//     }
+
+//     isClicked = !isClicked;
+//   };
+// })();
+
+// // function handleRecord() {
+// //   recordListWrapper.hidden = false;
+// // }
+
+// function handleReset() {
+//   recordListWrapper.hidden = true;
+//   recondButton.disabled = true;
+//   resetButton.disabled = true;
+// }
+
+// startButton.addEventListener('click', handleRollingDice);
+// recondButton.addEventListener('click', handleRecord);
+// resetButton.addEventListener('click', handleReset);
+
+//# 3. 주사위 값을 가져와서 랜더링
+
+// 회차가 늘어날 수 있도록
+// diceValue 들어갈 수 있도록
+// total 값이 나올 수 있도록
+
 const recordListWrapper = getNode('.recordListWrapper');
+const tbody = getNode('.recordList tbody');
+
+let count = 0;
+let total = 0;
+
+function createItem(value) {
+  // 뿌려줄 템플릿 만들기
+  return /* html */ `
+    <tr>
+      <td>${++count}</td>
+      <td>${value}</td>
+      <td>${(total += value)}</td>
+    </tr>
+  `;
+}
+
+function renderRecordItem() {
+  // 큐브의 data-dice 값 가져오기
+  const diceValue = +attr('#cube', 'data-dice');
+
+  insertLast(tbody, createItem(diceValue));
+
+  endScroll(recordListWrapper);
+}
 
 const handleRollingDice = ((e) => {
   let isClicked = false;
@@ -128,6 +202,8 @@ const handleRollingDice = ((e) => {
 
 function handleRecord() {
   recordListWrapper.hidden = false;
+
+  renderRecordItem();
 }
 
 function handleReset() {
