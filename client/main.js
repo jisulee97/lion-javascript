@@ -26,16 +26,37 @@ const [startButton, recondButton, resetButton] = getNodes(
 
 //# 3. 애니메이션 토글 제어
 
-let isClicked = false;
-let stopAnimation;
+// function handleRollingDice(e) {
+//   let isClicked = false;
+//   let stopAnimation;
 
-function handleRollingDice() {
-  if (!isClicked) {
-    stopAnimation = setInterval(diceAnimation, 100);
-  } else {
-    console.log('두번째 클릭');
-    clearInterval(stopAnimation);
-  }
-  isClicked = !isClicked;
-}
+//   return () => {
+//     if (!isClicked) {
+//       stopAnimation = setInterval(diceAnimation, 100);
+//     } else {
+//       clearInterval(stopAnimation);
+//     }
+
+//     isClicked = !isClicked;
+//   };
+// }
+// startButton.addEventListener('click', handleRollingDice());
+
+//# 4. 즉시실행함수로 변경(클로저 + IIFE 를 사용한 변수 보호)
+
+const handleRollingDice = ((e) => {
+  let isClicked = false;
+  let stopAnimation;
+
+  return () => {
+    if (!isClicked) {
+      stopAnimation = setInterval(diceAnimation, 100);
+    } else {
+      clearInterval(stopAnimation);
+    }
+
+    isClicked = !isClicked;
+  };
+})();
+
 startButton.addEventListener('click', handleRollingDice);
