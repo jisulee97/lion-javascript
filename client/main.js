@@ -39,16 +39,6 @@ const [startButton, recordButton, resetButton] = getNodes(
 const recordListWrapper = getNode('.recordListWrapper');
 const tbody = getNode('.recordList tbody');
 
-// 진짜 진짜 쉬운 과제
-
-// disableElement(node)
-// enableElement(node)
-// isDisableState(node)  => true / false
-
-// visibleElement(node)
-// invisibleElement(node)
-// isVisibleState(node) => true / false
-
 let count = 0;
 let total = 0;
 
@@ -72,6 +62,47 @@ function renderRecordItem() {
   endScroll(recordListWrapper);
 }
 
+// 진짜 진짜 쉬운 과제
+
+//# disableElement(node)
+
+function disableElement(node) {
+  node.disabled = true;
+}
+//# enableElement(node)
+
+function enableElement(node) {
+  node.disabled = false;
+}
+
+//# isDisableState(node)  => true / false
+
+// function isDisableState(node) {
+//   if (node.disabled === true) {
+//     return true;
+//   } else return false;
+// }
+
+//# visibleElement(node)
+
+function visibleElement(node) {
+  node.hidden = true;
+}
+
+//# invisibleElement(node)
+
+function invisibleElement(node) {
+  node.hidden = false;
+}
+
+//# isVisibleState(node) => true / false
+
+// function isVisibleState(node) {
+//   if (node.hidden !== true) {
+//     return true;
+//   } else return false;
+// }
+
 const handleRollingDice = ((e) => {
   let isClicked = false;
   let stopAnimation;
@@ -80,13 +111,17 @@ const handleRollingDice = ((e) => {
     if (!isClicked) {
       // 주사위 play
       stopAnimation = setInterval(diceAnimation, 100);
-      recordButton.disabled = true;
-      resetButton.disabled = true;
+      disableElement(recordButton);
+      disableElement(resetButton);
+      // recordButton.disabled = true;
+      // resetButton.disabled = true;
     } else {
       // 주사위 stop
       clearInterval(stopAnimation);
-      recordButton.disabled = false;
-      resetButton.disabled = false;
+      enableElement(recordButton);
+      enableElement(resetButton);
+      // recordButton.disabled = false;
+      // resetButton.disabled = false;
     }
 
     isClicked = !isClicked;
@@ -98,14 +133,18 @@ const handleRollingDice = ((e) => {
 // total 값이 나올 수 있도록
 
 function handleRecord() {
-  recordListWrapper.hidden = false;
+  // recordListWrapper.hidden = false;
+  invisibleElement(recordListWrapper);
   renderRecordItem();
 }
 
 function handleReset() {
-  recordListWrapper.hidden = true;
-  recordButton.disabled = true;
-  resetButton.disabled = true;
+  // recordListWrapper.hidden = true;
+  visibleElement(recordListWrapper);
+  disableElement(recordButton);
+  disableElement(resetButton);
+  // recordButton.disabled = true;
+  // resetButton.disabled = true;
 
   clearContents(tbody);
 
