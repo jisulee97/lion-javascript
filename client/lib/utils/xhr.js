@@ -281,15 +281,15 @@ xhr.get = (url, onSuccess, onFail) => {
 
 //# 함수 사용
 
-xhr.get(
-  'https://jsonplaceholder.typicode.com/users',
-  (result) => {
-    console.log(result);
-  },
-  (err) => {
-    console.log(err);
-  }
-);
+// xhr.get(
+//   'https://jsonplaceholder.typicode.com/users',
+//   (result) => {
+//     console.log(result);
+//   },
+//   (err) => {
+//     console.log(err);
+//   }
+// );
 
 //@ xhr.post();
 
