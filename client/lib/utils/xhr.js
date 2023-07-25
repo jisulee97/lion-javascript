@@ -1,6 +1,6 @@
 //* [패턴]
 
-// const xhr = new XMLHttpRequest(); // xhr 객체 생성
+// const xhr = new 0(); // xhr 객체 생성
 // xhr.open('GET', 'https://jsonplaceholder.typicode.com/users'); // 어떤 통신으로 어디서 가져다쓸건지 지정
 // xhr.send(); // 전송
 
@@ -60,23 +60,23 @@
 
 //@ xhr 함수로 만들기
 
-// function xhr(method, url) {
-//   const xhr = new XMLHttpRequest();
+function xhr(method, url) {
+  const xhr = new XMLHttpRequest();
 
-//   xhr.open(method, url);
-//   xhr.addEventListener('readystatechange', () => {
-//     const { status, readyState, response } = xhr;
+  xhr.open(method, url);
+  xhr.addEventListener('readystatechange', () => {
+    const { status, readyState, response } = xhr;
 
-//     if (status >= 200 && status < 400) {
-//       if (readyState === 4) {
-//         console.log(JSON.parse(response)); // 서버로부터 가져온 값(JSON의 parse 라는 것을 돌려서)
-//     } else {
-//       console.log('실패');
-//     }
-//   });
-//   xhr.send();
-// }
-// xhr('GET', 'https://jsonplaceholder.typicode.com/users');
+    if (status >= 200 && status < 400) {
+      if (readyState === 4) {
+        console.log(JSON.parse(response)); // 서버로부터 가져온 값(JSON의 parse 라는 것을 돌려서)
+    } else {
+      console.log('실패');
+    }
+  });
+  xhr.send();
+}
+xhr('GET', 'https://jsonplaceholder.typicode.com/users');
 
 //@ 가져온 정보를 랜더링 하기(callback) => 통신된 결과를 가져다가 쓰고 싶음
 
@@ -325,3 +325,29 @@ xhr.delete = (url, onSuccess, onFail) => {
     onFail,
   });
 };
+
+//@ ======================== 추가 설명 ====================================================================
+
+//# xhr.send(JSON.stringify(body));
+//^ => {name:'tiger} 라는 객체를 그냥 전달할 시 Ajax 엔진은 저 값을 받지 않는다
+//^ 모든 부분을 다 문자로 받자고 룰을 정해둔 것
+
+//# onSuccess(JSON.parse(response));
+//^ => 문자로 받은 값들을 다시 데이터화(객체화) 시킴
+
+//# 'Access-Control-Allow-Origin': '*';
+//^ 호스트가 다르든 상관 없이 모든 사이트를 다 가져올거야(모든 권한 허용)
+//^ 이래도 CORS 오류가 뜬다면 서버 개발자가 권한을 막아둔것이기 때문에 서버 개발자의 허용이 필요하다!
+
+// export function xhr({
+//   method = 'GET',
+//   url = '',
+//   onSuccess = null,
+//   onFail = null,
+//   body = null,
+//   headers = {
+//     'Content-Type': 'application.json',
+//     'Access-Control-Allow-Origin': '*',
+//   },
+// } = {}) {
+//# xhr 에 값이 안 들어올 경우 객체로 쓰겠다(기본값이라 써도 그만 안 써도 그만!)
