@@ -38,28 +38,28 @@ import { getNode } from '../dom/getNode.js';
 // });
 
 // new 를 붙일 경우 전부 객체로 생성됨
-let state = true; // 통신 성공 or 실패
+// let state = true; // 통신 성공 or 실패
 
-function delayP() {
-  // 성공이야? (약속해 알려주기로) 그럼 이거 해
-  // 실패야? (약속해 알려주기로) 그럼 이거 해
+// function delayP() {
+//   // 성공이야? (약속해 알려주기로) 그럼 이거 해
+//   // 실패야? (약속해 알려주기로) 그럼 이거 해
 
-  return new Promise((resolve, reject) => {
-    // 내장돼있는 기능
-    if (state) {
-      resolve(); //# 나는 성공!
-    } else {
-      reject(); //# 나는 실패!
-    }
-  });
-}
+//   return new Promise((resolve, reject) => {
+//     // 내장돼있는 기능
+//     if (state) {
+//       resolve(); //# 나는 성공!
+//     } else {
+//       reject(); //# 나는 실패!
+//     }
+//   });
+// }
 // console.log(delayP());
 //# promise 객체 반환 => 함수이지만 delayP 자체는 객체이기 때문에 객체의 값에 접근하려면 . 을 써야 한다
 
-delayP().then(
-  () => {},
-  () => {}
-);
+// delayP().then(
+//   () => {},
+//   () => {}
+// );
 
 //@ 성공해도 실패해도 .then()은 똑같이 실행되고 (첫번째는 성공했을때 결과, 두번째는 실패했을때 실행되는 결과)
 //@ 보통 실패 구문은 생략하고 .catch() 를 통해서 에러를 잡아준다
@@ -90,3 +90,52 @@ delayP().then(
 // .then((결과)=>{
 //   console.log(결과);
 // })
+
+//# 객체 합성 mixin
+
+// 기본값 설정
+
+const defaultOptions = {
+  shouldReject: false,
+  timeout: 1000,
+  data: '성공',
+  errorMessage: '알 수 없는 오류가 발생했습니다.',
+};
+
+//@ shouldReject : 강제로 실패로 유도
+
+function delayP(options) {
+  //# 원본을 파괴하지 않기 위해서 얕은 복사 후 사용(실제 데이터에는 접근 x)
+  let config = { ...defaultOptions };
+
+  if (typeof options === 'number') {
+    config.timeout = options;
+  }
+
+  if (typeof options === 'object') {
+    config = { ...defaultOptions, ...options };
+  }
+
+  const { shouldReject, data, errorMessage, timeout } = config;
+
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (!shouldReject) {
+        resolve(data);
+      } else {
+        reject({ message: errorMessage });
+      }
+    }, timeout);
+  });
+}
+
+delayP({ shouldReject: false })
+  .then((res) => {
+    // console.log(res);
+  })
+  .catch(({ message }) => {
+    alert(message);
+  })
+  .finally(() => {
+    // console.log('어쨌든 실행됩니다');
+  });

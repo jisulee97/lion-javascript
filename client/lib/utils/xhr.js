@@ -1,4 +1,5 @@
 //* [패턴]
+import { refError } from './../error/refError.js';
 
 // const xhr = new 0(); // xhr 객체 생성
 // xhr.open('GET', 'https://jsonplaceholder.typicode.com/users'); // 어떤 통신으로 어디서 가져다쓸건지 지정
@@ -60,22 +61,22 @@
 
 //@ xhr 함수로 만들기
 
-function xhr(method, url) {
-  const xhr = new XMLHttpRequest();
+// function xhr(method, url) {
+//   const xhr = new XMLHttpRequest();
 
-  xhr.open(method, url);
-  xhr.addEventListener('readystatechange', () => {
-    const { status, readyState, response } = xhr;
+//   xhr.open(method, url);
+//   xhr.addEventListener('readystatechange', () => {
+//     const { status, readyState, response } = xhr;
 
-    if (status >= 200 && status < 400) {
-      if (readyState === 4) {
-        console.log(JSON.parse(response)); // 서버로부터 가져온 값(JSON의 parse 라는 것을 돌려서)
-    } else {
-      console.log('실패');
-    }
-  });
-  xhr.send();
-}
+//     if (status >= 200 && status < 400) {
+//       if (readyState === 4) {
+//         console.log(JSON.parse(response)); // 서버로부터 가져온 값(JSON의 parse 라는 것을 돌려서)
+//     } else {
+//       console.log('실패');
+//     }
+//   });
+//   xhr.send();
+// }
 xhr('GET', 'https://jsonplaceholder.typicode.com/users');
 
 //@ 가져온 정보를 랜더링 하기(callback) => 통신된 결과를 가져다가 쓰고 싶음
@@ -221,6 +222,9 @@ export function xhr({
   },
 } = {}) {
   const xhr = new XMLHttpRequest();
+
+  // if (!url) refError('서버와 통신할 url은 필수값 입니다.');
+
   xhr.open(method, url);
 
   Object.entries(headers).forEach(([key, value]) => {
@@ -351,3 +355,93 @@ xhr.delete = (url, onSuccess, onFail) => {
 //   },
 // } = {}) {
 //# xhr 에 값이 안 들어올 경우 객체로 쓰겠다(기본값이라 써도 그만 안 써도 그만!)
+
+//# promise API
+
+const defaultOptions = {
+  method: 'GET',
+  url: '',
+  body: null,
+  errorMessage: '서버와의 통신이 원활하지 않습니다.',
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+};
+
+function xhrPromise(options) {
+  // mixin
+
+  // const config = { ...defaultOptions, ...options }; //@ spreadSyntax 사용
+  // const config = Object.assign({}, defaultOptions, options);
+  //@ 명시적 합성, 앞에 빈객체를 넣어주지 않으면 원본을 훼손하기 떄문에 빈객체가 필요하다!
+  const { method, url, body, errorMessage, headers } = Object.assign(
+    {},
+    defaultOptions,
+    options
+  );
+
+  if (!url) refError('서버와 통신할 url은 필수값 입니다.');
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.open(method, url);
+
+  Object.entries(headers).forEach(([key, value]) => {
+    xhr.setRequestHeader(key, value);
+  });
+
+  xhr.send(JSON.stringify(body));
+
+  return new Promise((resolve, reject) => {
+    xhr.addEventListener('readystatechange', () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status >= 200 && xhr.status < 400) {
+          resolve(JSON.parse(xhr.response)); // 문자열을 객체값으로 변환시킴
+        } else {
+          reject({ message: '서버와의 통신이 원활하지 않습니다' });
+        }
+      }
+      // console.log(xhr.readyState);
+    });
+  });
+}
+
+// xhrPromise({
+//   url: 'https://jsonplaceholder.typicode.com/users',
+// }).then((res) => {
+//   res.forEach((item) => {
+//     console.log(item);
+//   });
+// });
+
+xhrPromise.get = (url) => {
+  return xhrPromise({
+    url,
+  });
+};
+
+xhrPromise.post = (url, body) => {
+  return xhrPromise({
+    url,
+    body,
+    method: 'POST',
+  });
+};
+
+xhrPromise.delete = (url) => {
+  return xhrPromise({
+    url,
+    method: 'DELETE',
+  });
+};
+
+xhrPromise.put = (url, body) => {
+  return xhrPromise({
+    url,
+    body,
+    method: 'PUT',
+  });
+};
+
+xhrPromise.get('https://jsonplaceholder.typicode.com/users');
