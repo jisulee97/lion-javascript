@@ -195,7 +195,7 @@ async function getpokemonData() {
   );
 }
 
-getpokemonData();
+// getpokemonData();
 
 //# then 으로 결과값 가져오기
 
