@@ -9,6 +9,7 @@ import {
   delayP,
   renderSpinner,
   renderemptyCard,
+  attr,
 } from './lib/index.js';
 
 // const data = await tiger.get('https://jsonplaceholder.typicode.com/user');
@@ -36,7 +37,7 @@ import {
 // })
 
 //@ ================================ 카드 랜더링 코드 ========================================
-
+//# [page 1]
 //# 1. tiger 함수를 사용하여 user 값을 가져오기
 //# 2. 함수 안으로 넣기
 // 서버 어딘가에 유저의 정보를 담고 있는 데이터가 있는데 예를 들어 delete 통신을
@@ -48,7 +49,8 @@ import {
 //    - insertLast 사용
 //# 4. 함수 분리
 
-//# 5. 에러가 발생했을 때 empty svg 를 생성하고 랜더링 하기
+//# [page 2]
+//# 1. 에러가 발생했을 때 empty svg 를 생성하고 랜더링 하기
 const userCardInner = $('.user-card-inner');
 
 async function renderUserList() {
@@ -62,8 +64,9 @@ async function renderUserList() {
         $('.loadingSpinner').remove();
       },
     });
-    const response = await tiger.get;
-    'https://jsonplaceholder.typicode.com/user'();
+    const response = await tiger.get(
+      'https://jsonplaceholder.typicode.com/users'
+    );
     const userData = response.data;
 
     userData.forEach((item) => renderUserCard(userCardInner, item));
@@ -82,3 +85,24 @@ async function renderUserList() {
 }
 
 renderUserList();
+
+// 버튼을 클릭 했을 때 해당 article 의 id 값을 가져옴
+//  - 이벤트 위임
+//  - button 선택하기 -> 클릭한 대상의 가장 가까운 ... method
+//  - attr(), dataset
+// console.log(article.dataset.index);
+// console.log(attr(article, 'data-index'));
+
+function handleDelete(e) {
+  const button = e.target.closest('button');
+  const article = e.target.closest('article');
+
+  if (!article || !button) return;
+
+  // DELETE 통신 시 URL 뒤에 숫자만 떨어져야 하는데 user-1 이런식으로 떨어지기 때문에 id 값만 떨어지게 slice 를 사용하여 잘라줌
+  const id = attr(article, 'data-index').slice(5);
+  // console.log(id);
+
+  tiger.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
+}
+userCardInner.addEventListener('click', handleDelete);
