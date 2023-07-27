@@ -10,6 +10,7 @@ import {
   renderSpinner,
   renderemptyCard,
   attr,
+  clearContents,
 } from './lib/index.js';
 
 // const data = await tiger.get('https://jsonplaceholder.typicode.com/user');
@@ -64,9 +65,7 @@ async function renderUserList() {
         $('.loadingSpinner').remove();
       },
     });
-    const response = await tiger.get(
-      'https://jsonplaceholder.typicode.com/users'
-    );
+    const response = await tiger.get('http://localhost:3000/users');
     const userData = response.data;
 
     userData.forEach((item) => renderUserCard(userCardInner, item));
@@ -103,6 +102,10 @@ function handleDelete(e) {
   const id = attr(article, 'data-index').slice(5);
   // console.log(id);
 
-  tiger.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
+  tiger.delete(`http://localhost:3000/users/${id}`).then(() => {
+    // 컨텐츠 항목 전체 지우기
+    clearContents(userCardInner);
+    renderUserList();
+  });
 }
 userCardInner.addEventListener('click', handleDelete);
