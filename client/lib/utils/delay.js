@@ -181,9 +181,9 @@ async function 라면끓이기() {
 async function getpokemonData() {
   const data = xhrPromise.get('https://pokeapi.co/api/v2/pokemon/7');
 
-  // data.then((res)=>{
-  //   console.log( res );
-  // })
+  data.then((res) => {
+    console.log(res);
+  });
 
   const pokemon = await data;
 
@@ -199,11 +199,11 @@ async function getpokemonData() {
 
 //# then 으로 결과값 가져오기
 
-// async function getUserData2() {
-//   const data = xhrPromise.get('https://pokeapi.co/api/v2/pokemon');
+async function getUserData2() {
+  const data = xhrPromise.get('https://pokeapi.co/api/v2/pokemon');
 
-//   data.then((res) => {
-//     console.log(res);
-//   });
-// }
-// getUserData2();
+  data.then((res) => {
+    console.log(res);
+  });
+}
+getUserData2();
