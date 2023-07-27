@@ -51,10 +51,7 @@ async function renderUserList() {
 
   const userData = response.data;
 
-  userData.forEach((item) => {
-    // 어디에 랜더링 할껀데? 어떤 데이터를 랜더링 할껀데?
-    renderUserCard(userCardInner, item);
-  });
+  userData.forEach((item) => renderUserCard(userCardInner, item));
 }
 
 renderUserList();
