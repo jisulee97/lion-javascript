@@ -1,9 +1,18 @@
+import { getNode, getStorage, setStorage } from './lib/index.js';
 
+const textField = getNode('#textField');
 
+function handleTextField() {
+  const value = this.value;
 
-console.log('hello js!');
+  setStorage('text', value);
+}
 
-const a = 10;
+function init() {
+  getStorage('text').then((res) => {
+    textField.value = res;
+  });
+}
 
-const b = 10;
-
+textField.addEventListener('input', handleTextField);
+window.addEventListener('DOMContentLoaded', init);
