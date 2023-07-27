@@ -3,6 +3,7 @@ import {
   tiger,
   getNode as $,
   renderUserCard,
+  changeColor,
 } from './lib/index.js';
 
 // const data = await tiger.get('https://jsonplaceholder.typicode.com/user');
@@ -52,6 +53,8 @@ async function renderUserList() {
   const userData = response.data;
 
   userData.forEach((item) => renderUserCard(userCardInner, item));
+
+  changeColor('.user-card');
 }
 
 renderUserList();
