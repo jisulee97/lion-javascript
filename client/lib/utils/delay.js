@@ -203,7 +203,7 @@ async function getUserData2() {
   const data = xhrPromise.get('https://pokeapi.co/api/v2/pokemon');
 
   data.then((res) => {
-    console.log(res);
+    // console.log(res);
   });
 }
 getUserData2();

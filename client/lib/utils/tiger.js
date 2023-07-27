@@ -64,7 +64,7 @@ const response = await tiger({
   method: 'POST',
 });
 const userData = response.data;
-console.log(userData);
+// console.log(userData);
 
 //# tiger.get
 
