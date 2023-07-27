@@ -9,7 +9,7 @@
 
 //@ 함수 생성
 
-const URL = 'https://jsonplaceholder.typicode.com/users';
+// const URL = 'https://jsonplaceholder.typicode.com/users';
 
 const defaultOptions = {
   method: 'GET',

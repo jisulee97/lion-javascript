@@ -7,6 +7,8 @@ import {
   renderUserCard,
   changeColor,
   delayP,
+  renderSpinner,
+  renderemptyCard,
 } from './lib/index.js';
 
 // const data = await tiger.get('https://jsonplaceholder.typicode.com/user');
@@ -46,25 +48,37 @@ import {
 //    - insertLast 사용
 //# 4. 함수 분리
 
+//# 5. 에러가 발생했을 때 empty svg 를 생성하고 랜더링 하기
 const userCardInner = $('.user-card-inner');
 
 async function renderUserList() {
-  delayP();
-  const response = await tiger.get(
-    'https://jsonplaceholder.typicode.com/users'
-  );
+  renderSpinner(userCardInner);
+  try {
+    await delayP({ timeout: 2000 });
 
-  const userData = response.data;
+    gsap.to('.loadingSpinner', {
+      opacity: 0,
+      onComplete() {
+        $('.loadingSpinner').remove();
+      },
+    });
+    const response = await tiger.get;
+    'https://jsonplaceholder.typicode.com/user'();
+    const userData = response.data;
 
-  userData.forEach((item) => renderUserCard(userCardInner, item));
+    userData.forEach((item) => renderUserCard(userCardInner, item));
 
-  changeColor('.user-card');
+    changeColor('.user-card');
 
-  gsap.to('.user-card', {
-    x: 0,
-    opacity: 1,
-    stagger: 0.2,
-  });
+    gsap.to('.user-card', {
+      x: 0,
+      opacity: 1,
+      stagger: 0.1,
+    });
+  } catch (err) {
+    console.log(err);
+    renderemptyCard(userCardInner);
+  }
 }
 
 renderUserList();
