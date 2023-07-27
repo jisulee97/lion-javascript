@@ -1,4 +1,9 @@
-import { insertLast, tiger } from './lib/index.js';
+import {
+  insertLast,
+  tiger,
+  getNode as $,
+  renderUserCard,
+} from './lib/index.js';
 
 // const data = await tiger.get('https://jsonplaceholder.typicode.com/user');
 // console.log(data);
@@ -35,6 +40,9 @@ import { insertLast, tiger } from './lib/index.js';
 //    - html template 을 만든다
 //    - 유저 data 넘겨주기
 //    - insertLast 사용
+//# 4. 함수 분리
+
+const userCardInner = $('.user-card-inner');
 
 async function renderUserList() {
   const response = await tiger.get(
@@ -44,34 +52,9 @@ async function renderUserList() {
   const userData = response.data;
 
   userData.forEach((item) => {
-    console.log(item);
-    //@ 화면에 랜더링
-    const template = /*html*/ `
-    <article class="user-card" data-index="user-1">
-    <h3 class="user-name">kindtiger</h3>
-    <div class="user-resouce-info">
-      <div>
-        <a class="user-email" href="mailto:tiger@euid.dev"
-          >tiger@euid.dev</a
-        >
-      </div>
-      <div>
-        <a
-          class="user-website"
-          href="http://tiger.com"
-          target="_blank"
-          rel="noopener noreferer"
-          >tiger.com</a
-        >
-      </div>
-    </div>
-    <button class="delete">삭제</button>
-  </article>
-  `;
-
-    insertLast('.user-card-inner', template);
+    // 어디에 랜더링 할껀데? 어떤 데이터를 랜더링 할껀데?
+    renderUserCard(userCardInner, item);
   });
-
-  // console.log(userData);
 }
+
 renderUserList();
