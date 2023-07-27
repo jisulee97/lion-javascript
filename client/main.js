@@ -1,9 +1,12 @@
+/* global gsap*/
+
 import {
   insertLast,
   tiger,
   getNode as $,
   renderUserCard,
   changeColor,
+  delayP,
 } from './lib/index.js';
 
 // const data = await tiger.get('https://jsonplaceholder.typicode.com/user');
@@ -46,6 +49,7 @@ import {
 const userCardInner = $('.user-card-inner');
 
 async function renderUserList() {
+  delayP();
   const response = await tiger.get(
     'https://jsonplaceholder.typicode.com/users'
   );
@@ -55,6 +59,12 @@ async function renderUserList() {
   userData.forEach((item) => renderUserCard(userCardInner, item));
 
   changeColor('.user-card');
+
+  gsap.to('.user-card', {
+    x: 0,
+    opacity: 1,
+    stagger: 0.2,
+  });
 }
 
 renderUserList();

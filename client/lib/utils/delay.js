@@ -106,7 +106,7 @@ const defaultOptions = {
 
 //@ shouldReject : 강제로 실패로 유도
 
-function delayP(options) {
+export function delayP(options) {
   //# 원본을 파괴하지 않기 위해서 얕은 복사 후 사용(실제 데이터에는 접근 x)
   let config = { ...defaultOptions };
 
